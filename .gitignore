@@ -1,0 +1,8 @@
+node_modules
+.tmp
+.env
+.cache
+.strapi-updater.json
+build
+.DS_Store
+.idea
