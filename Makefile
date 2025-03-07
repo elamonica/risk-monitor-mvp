@@ -27,4 +27,4 @@ gitflow:
 # Create admin user
 admin:
 	@echo "Creating admin user..."
-	docker exec -it risk-monitor-strapi yarn strapi admin:create-user --username=admin --password=password --email=admin@risk-monitor.com --firstname=Super --lastname=Admin
+	docker exec -it risk-monitor-strapi yarn strapi admin:create --firstname=Super --lastname=Admin --email=admin@risk-monitor.com --username=admin --password=password

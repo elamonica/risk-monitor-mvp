@@ -27,7 +27,7 @@ sleep 30
 
 # Create admin user
 echo -e "${BLUE}Creating admin user...${NC}"
-docker exec -it risk-monitor-strapi yarn strapi admin:create-user --username=admin --password=password --email=admin@risk-monitor.com --firstname=Super --lastname=Admin
+docker exec -it risk-monitor-strapi yarn strapi admin:create --firstname=Super --lastname=Admin --email=admin@risk-monitor.com --username=admin --password=password
 
 # Print success message
 echo -e "${GREEN}Installation complete!${NC}"

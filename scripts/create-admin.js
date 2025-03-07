@@ -3,13 +3,18 @@ module.exports = async () => {
   try {
     // Check if there is already an admin user to avoid duplicates
     const existingAdmin = await strapi.admin.services.user.findOne({
-      email: 'admin@risk-monitor.com',
+      where: { email: 'admin@risk-monitor.com' },
     });
 
     if (existingAdmin) {
       console.log('Admin user already exists');
       return;
     }
+
+    // Get the super admin role
+    const superAdminRole = await strapi.query('admin::role').findOne({
+      where: { code: 'strapi-super-admin' }
+    });
 
     // Create the admin user
     await strapi.admin.services.user.create({
@@ -19,7 +24,7 @@ module.exports = async () => {
       firstname: 'Super',
       lastname: 'Admin',
       isActive: true,
-      roles: [1], // Super admin role
+      roles: [superAdminRole.id],
     });
 
     console.log('Admin user created successfully');

@@ -6,6 +6,10 @@ module.exports = async ({ strapi }) => {
   
   if (adminCount === 0) {
     try {
+      const superAdminRole = await strapi.query('admin::role').findOne({
+        where: { code: 'strapi-super-admin' }
+      });
+      
       await strapi.admin.services.user.create({
         username: 'admin',
         email: 'admin@risk-monitor.com',
@@ -13,7 +17,7 @@ module.exports = async ({ strapi }) => {
         firstname: 'Super',
         lastname: 'Admin',
         isActive: true,
-        roles: [1], // Super admin role
+        roles: [superAdminRole.id],
       });
       
       strapi.log.info('Admin user created successfully');
