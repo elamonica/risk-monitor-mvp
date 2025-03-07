@@ -1,0 +1,47 @@
+version: '3'
+services:
+  strapi:
+    container_name: risk-monitor-strapi
+    build: .
+    image: risk-monitor-strapi:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./app:/srv/app
+    ports:
+      - '1337:1337'
+    networks:
+      - risk-monitor-network
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: risk-monitor-postgres
+    image: postgres:14
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - risk-monitor-network
+
+networks:
+  risk-monitor-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
