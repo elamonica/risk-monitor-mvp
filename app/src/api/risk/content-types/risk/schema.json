@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "risks",
+  "info": {
+    "singularName": "risk",
+    "pluralName": "risks",
+    "displayName": "Risk",
+    "description": "Risk monitoring collection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "required": true,
+      "default": "low"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "identified",
+        "analyzing",
+        "mitigating",
+        "resolved",
+        "closed"
+      ],
+      "required": true,
+      "default": "identified"
+    },
+    "target_resolution_date": {
+      "type": "date"
+    },
+    "actual_resolution_date": {
+      "type": "date"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "operational",
+        "financial",
+        "strategic",
+        "compliance",
+        "technical",
+        "other"
+      ],
+      "required": true
+    },
+    "mitigation_plan": {
+      "type": "text"
+    }
+  }
+}
